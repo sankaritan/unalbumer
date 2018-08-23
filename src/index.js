@@ -4,12 +4,10 @@ import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
 import "./index.css";
 import App from "./App";
-import store, { history } from "./store/store";
+import store, { history } from "./store";
 
 ReactDOM.render(
-  // Redux helper component that provides store to entire app
   <Provider store={store}>
-    {/* Router component that provides access to history to entire app */}
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>

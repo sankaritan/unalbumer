@@ -9,28 +9,24 @@ history.push("/");
 
 // initial state of the store, that will be used by the app
 export const initialState = {
-  counter: {
-    count: 0,
-    isIncrementing: false,
-    isDecrementing: false
+  user: {
+    username: null,
+    loggedIn: false,
+    oauthToken: null
   },
-  homeTitle: "Default Home Title",
-  somethingElse: true
+  photos: {
+    albums: []
+  }
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// create store object
 const store = createStore(
-  // combine all custom reducers + router reducer into one
   combineReducers({
     ...rootReducer,
     router: routerReducer
   }),
   initialState,
-  // define middleware
-  // > thunk - to allow actions that return function
-  // > history - to allow routing via pushing into history array)
   composeEnhancers(applyMiddleware(thunk, routerMiddleware(history)))
 );
 

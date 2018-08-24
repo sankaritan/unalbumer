@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import { routerReducer, routerMiddleware } from "react-router-redux";
 import createHistory from "history/createBrowserHistory";
-import { rootReducer } from "../reducers/rootReducer";
 import thunk from "redux-thunk";
+import { rootReducer } from "../reducers/rootReducer";
 
 export const history = createHistory();
 history.push("/");
@@ -12,10 +12,12 @@ export const initialState = {
   user: {
     username: null,
     loggedIn: false,
-    oauthToken: null
+    oauthToken: null,
   },
   photos: {
-    albums: []
+    albums: [],
+    photosInAlbums: [],
+    allPhotos: [],
   }
 };
 

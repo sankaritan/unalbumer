@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "jest": true
+  },
+  "plugins": ["react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "globals": {
+    "window": true,
+    "document": true
+  },
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "16.4.2",
+      "flowVersion": "0.53"
+    },
+    "propWrapperFunctions": ["forbidExtraProps"]
+  }
+}

@@ -1,9 +1,14 @@
 import axios from "axios";
 
+const getAuthHeader = token => ({ Authorization: `Bearer ${token}` });
+
+// TODO - generalize pagination function to remove duplicates in code
+// const getAllPages = () => {
+
+// }
+
 export const getAllAlbums = async token => {
-  let authHeader = {
-    Authorization: `Bearer ${token}`
-  };
+  const authHeader = getAuthHeader(token);
   let hasAllAlbums = false;
   let collectedAlbums = [];
   let nextPageToken = null;
@@ -38,8 +43,64 @@ export const getAllAlbums = async token => {
   return collectedAlbums;
 };
 
-// CREATE ALBUM
+export const getPhotosInAlbum = async (token, albumId) => {
+  let payload = {
+    pageSize: 500,
+    albumId: albumId
+  };
+  const response = await axios.post(
+    "https://photoslibrary.googleapis.com/v1/mediaItems:search",
+    payload,
+    { headers: getAuthHeader(token) }
+  );
+  return response;
+};
 
-// POST https://photoslibrary.googleapis.com/v1/albums
-// Content-type: application/json
-// Authorization: Bearer OAUTH2_TOKEN
+export const getAllPhotos = async token => {
+  const authHeader = getAuthHeader(token);
+  let hasAllPhotos = false;
+  let collectedPhotos = [];
+  let nextPageToken = null;
+
+  while (!hasAllPhotos) {
+    // construct request parameters
+    let requestParams = {
+      pageSize: 500,
+      pageToken: nextPageToken
+    };
+
+    // call the albums api
+    const response = await axios.get(
+      "https://photoslibrary.googleapis.com/v1/mediaItems",
+      {
+        params: requestParams,
+        headers: authHeader
+      }
+    );
+
+    // collected albums
+    collectedPhotos.push(...response.data.mediaItems);
+
+    // are there more albums? (next page exists?)
+    if (response.data.nextPageToken) {
+      nextPageToken = response.data.nextPageToken;
+    } else {
+      hasAllPhotos = true;
+    }
+  }
+
+  // return all collected albums
+  return collectedPhotos;
+};
+
+export const createNewAlbum = async (token, albumTitle) => {
+  let payload = {
+    title: albumTitle
+  };
+  const response = await axios.post(
+    "https://photoslibrary.googleapis.com/v1/albums",
+    payload,
+    { headers: getAuthHeader(token) }
+  );
+  return response;
+};

@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import { loginUserAction } from "../actions";
 import PhotosWrapper from "./PhotosWrapper";
+import PropTypes from "prop-types";
 
 class Root extends Component {
-  loginSuccess = response => {
+  loginSuccess = (response) => {
     const username = response.profileObj.name;
     const token = response.accessToken;
     this.props.dispatch(loginUserAction(username, token));
@@ -27,9 +28,9 @@ class Root extends Component {
           <div>
             <h1>Log in with Google</h1>
             <GoogleLogin
-              clientId="605618239676-78umvil4rmbv85r20bn38lkjbq06pamg.apps.googleusercontent.com"
+              clientId="493662417086-dsm3ap89a5uvlv28sn9f7qu19fi7k26p.apps.googleusercontent.com"
               buttonText="Login"
-              scope="https://www.googleapis.com/auth/photoslibrary.readonly"
+              scope="https://www.googleapis.com/auth/photoslibrary"
               onSuccess={this.loginSuccess}
               onFailure={this.loginFailure}
             />
@@ -41,7 +42,13 @@ class Root extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+Root.propTypes = {
+  dispatch: PropTypes.func,
+  username: PropTypes.string,
+  loggedIn: PropTypes.bool
+};
+
+const mapStateToProps = (state) => ({
   username: state.user.username,
   loggedIn: state.user.loggedIn
 });

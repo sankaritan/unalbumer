@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAllPhotosInAlbumsAction, getAllPhotosAction } from "../actions";
-import filterUnorganizedPhotos from "../selectors/photosSelector";
+import {
+  getAllPhotosInAlbumsAction,
+  getAllPhotosAction,
+  createNewAlbumAction
+} from "../actions";
+import { filterUnorganizedPhotos } from "../selectors/photosSelector";
 import PropTypes from "prop-types";
 
 class PhotosWrapper extends Component {
@@ -23,17 +27,23 @@ class PhotosWrapper extends Component {
 
   getUnorganizedPhotos() {
     const photos = this.props.unorganizedPhotos;
-    return photos.map((photo) => <li key={photo.id}>{photo.filename}</li>);
+    return photos.map((photo) => (
+      <img className="photo-card" key={photo.id} src={photo.baseUrl} />
+    ));
   }
 
-  getAllPhotosInAlbums() {
-    const photos = this.props.photosInAlbums;
-    return photos.map((photo) => <li key={photo.id}>{photo.filename}</li>);
-  }
-
-  getAllPhotos() {
-    const photos = this.props.allPhotos;
-    return photos.map((photo) => <li key={photo.id}>{photo.filename}</li>);
+  addToNewAlbum(title) {
+    this.props
+      .dispatch(
+        createNewAlbumAction(
+          this.props.oauthToken,
+          this.props.unorganizedPhotos,
+          title
+        )
+      )
+      .catch((error) => {
+        this.dataError = error.message;
+      });
   }
 
   render() {
@@ -41,12 +51,20 @@ class PhotosWrapper extends Component {
       <div>
         {this.props.loggedIn && !this.dataError ? (
           <div>
-            <h2>Photos in Albums</h2>
-            <ul>{this.getAllPhotosInAlbums()}</ul>
-            <h2>All Photos</h2>
-            <ul>{this.getAllPhotos()}</ul>
-            <h2>All Unorganized Photos</h2>
-            <ul>{this.getUnorganizedPhotos()}</ul>
+            <h3>All Unorganized Photos</h3>
+            <button onClick={() => this.addToNewAlbum("Unalbumer 1")}>
+              Create new album
+            </button>
+            {this.props.newAlbum && (
+              <p>
+                New empty album{" "}
+                <a href={this.props.newAlbum.productUrl}>
+                  <b>{this.props.newAlbum.title}</b>
+                </a>{" "}
+                was created.
+              </p>
+            )}
+            <div>{this.getUnorganizedPhotos()}</div>
           </div>
         ) : (
           <div>
@@ -66,7 +84,8 @@ PhotosWrapper.propTypes = {
   loggedIn: PropTypes.bool,
   photosInAlbums: PropTypes.array,
   allPhotos: PropTypes.array,
-  unorganizedPhotos: PropTypes.array
+  unorganizedPhotos: PropTypes.array,
+  newAlbum: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
@@ -77,7 +96,8 @@ const mapStateToProps = (state) => ({
   unorganizedPhotos: filterUnorganizedPhotos(
     state.photos.allPhotos,
     state.photos.photosInAlbums
-  )
+  ),
+  newAlbum: state.photos.newAlbum
 });
 
 export default connect(mapStateToProps)(PhotosWrapper);

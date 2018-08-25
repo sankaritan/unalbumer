@@ -18,6 +18,7 @@ export const initialState = {
     albums: [],
     photosInAlbums: [],
     allPhotos: [],
+    newAlbum: null,
   }
 };
 

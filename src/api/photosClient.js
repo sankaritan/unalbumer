@@ -1,13 +1,8 @@
 import axios from "axios";
 
-const getAuthHeader = token => ({ Authorization: `Bearer ${token}` });
+const getAuthHeader = (token) => ({ Authorization: `Bearer ${token}` });
 
-// TODO - generalize pagination function to remove duplicates in code
-// const getAllPages = () => {
-
-// }
-
-export const getAllAlbums = async token => {
+export const getAllAlbums = async (token, limit = 5) => {
   const authHeader = getAuthHeader(token);
   let hasAllAlbums = false;
   let collectedAlbums = [];
@@ -15,7 +10,7 @@ export const getAllAlbums = async token => {
   while (!hasAllAlbums) {
     // construct request parameters
     let requestParams = {
-      pageSize: 50,
+      pageSize: 5, // TODO - increase
       pageToken: nextPageToken
     };
 
@@ -32,7 +27,7 @@ export const getAllAlbums = async token => {
     collectedAlbums.push(...response.data.albums);
 
     // are there more albums? (next page exists?)
-    if (response.data.nextPageToken) {
+    if (response.data.nextPageToken && collectedAlbums.length <= limit) {
       nextPageToken = response.data.nextPageToken;
     } else {
       hasAllAlbums = true;
@@ -56,7 +51,7 @@ export const getPhotosInAlbum = async (token, albumId) => {
   return response;
 };
 
-export const getAllPhotos = async token => {
+export const getAllPhotos = async (token, limit = 50) => {
   const authHeader = getAuthHeader(token);
   let hasAllPhotos = false;
   let collectedPhotos = [];
@@ -65,7 +60,7 @@ export const getAllPhotos = async token => {
   while (!hasAllPhotos) {
     // construct request parameters
     let requestParams = {
-      pageSize: 500,
+      pageSize: 50, // TODO increase
       pageToken: nextPageToken
     };
 
@@ -82,7 +77,7 @@ export const getAllPhotos = async token => {
     collectedPhotos.push(...response.data.mediaItems);
 
     // are there more albums? (next page exists?)
-    if (response.data.nextPageToken) {
+    if (response.data.nextPageToken && collectedPhotos.length <= limit) {
       nextPageToken = response.data.nextPageToken;
     } else {
       hasAllPhotos = true;
@@ -93,9 +88,9 @@ export const getAllPhotos = async token => {
   return collectedPhotos;
 };
 
-export const createNewAlbum = async (token, albumTitle) => {
+const createNewAlbum = async (token, albumTitle) => {
   let payload = {
-    title: albumTitle
+    album: { title: albumTitle }
   };
   const response = await axios.post(
     "https://photoslibrary.googleapis.com/v1/albums",
@@ -103,4 +98,25 @@ export const createNewAlbum = async (token, albumTitle) => {
     { headers: getAuthHeader(token) }
   );
   return response;
+};
+
+// TODO - Not supported by API as of now
+// const addPhotosToAlbum = async (token, existingAlbumId, photos) => {
+//   let payload = {
+//     albumId: existingAlbumId,
+//     newMediaItems: photos
+//   };
+//   const response = await axios.post(
+//     "https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate",
+//     payload,
+//     { headers: getAuthHeader(token) }
+//   );
+//   return response;
+// };
+
+export const organizePhotos = async (token, photos, albumTitle) => {
+  const album = await createNewAlbum(token, albumTitle);
+  // TODO - Not supported by API as of now
+  // await addPhotosToAlbum(token, album.data.id, photos);
+  return album;
 };

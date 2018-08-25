@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import { loginUserAction } from "../actions";
 import PhotosWrapper from "./PhotosWrapper";
+import PageHeader from './PageHeader';
 import PropTypes from "prop-types";
 
 class Root extends Component {
@@ -19,6 +20,7 @@ class Root extends Component {
   render() {
     return (
       <div>
+          <PageHeader/>
         {this.props.loggedIn ? (
           <div>
             <p>Logged in as {this.props.username}!</p>
@@ -26,13 +28,12 @@ class Root extends Component {
           </div>
         ) : (
           <div>
-            <h1>Log in with Google</h1>
             <GoogleLogin
               clientId="493662417086-dsm3ap89a5uvlv28sn9f7qu19fi7k26p.apps.googleusercontent.com"
-              buttonText="Login"
               scope="https://www.googleapis.com/auth/photoslibrary"
               onSuccess={this.loginSuccess}
               onFailure={this.loginFailure}
+              className={ 'button' }
             />
             <div id="google-login" />
           </div>

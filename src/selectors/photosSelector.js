@@ -1,4 +1,4 @@
-const filterUnorganizedPhotos = (allPhotos, photosInAlbums) => {
+export const filterUnorganizedPhotos = (allPhotos, photosInAlbums) => {
   let unorganizedPhotos = [];
   allPhotos.forEach(photo => {
     const photoFound = photosInAlbums.some(photoInAlbum => {
@@ -10,5 +10,3 @@ const filterUnorganizedPhotos = (allPhotos, photosInAlbums) => {
   });
   return unorganizedPhotos;
 };
-
-export default filterUnorganizedPhotos;

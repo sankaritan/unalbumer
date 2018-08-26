@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { GoogleLogin } from "react-google-login";
-import { loginUserAction } from "../actions";
+import { loginUserAction } from "../actions/userActions";
 import PhotosWrapper from "./PhotosWrapper";
 import PageHeader from './PageHeader';
 import PropTypes from "prop-types";

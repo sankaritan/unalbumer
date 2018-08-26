@@ -1,6 +1,6 @@
-import { Actions } from "../actions";
+import { Actions } from "../actions/photosActions";
 
-export const photosReducer = (state = {}, action) => {
+export const photosReducer = (state = null, action) => {
   switch (action.type) {
     case Actions.GET_ALBUMS:
       return { ...state, albums: action.payload };

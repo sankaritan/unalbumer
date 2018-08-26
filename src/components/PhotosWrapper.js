@@ -4,11 +4,11 @@ import {
   getAllPhotosInAlbumsAction,
   getAllPhotosAction,
   createNewAlbumAction
-} from "../actions";
+} from "../actions/photosActions";
 import { filterUnorganizedPhotos } from "../selectors/photosSelector";
 import PropTypes from "prop-types";
 
-class PhotosWrapper extends Component {
+export class PhotosWrapper extends Component {
   dataError = null;
 
   componentDidMount() {

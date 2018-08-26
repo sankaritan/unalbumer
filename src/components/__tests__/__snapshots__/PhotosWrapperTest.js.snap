@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page Header component PhotosWrapper renders correctly 1`] = `
+"<div>
+  <div>
+    <h3>
+      All Unorganized Photos
+    </h3>
+    <button onClick={[Function: onClick]}>
+      Create new album
+    </button>
+    <div>
+      <img className=\\"photo-card\\" src=\\"www.google.com\\" />
+      <img className=\\"photo-card\\" src=\\"www.google.com\\" />
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`Page Header component PhotosWrapper renders correctly 2`] = `
+"<div>
+  <div>
+    <p>
+      You seem to be logged out or you failed to fetch data from Google!
+    </p>
+  </div>
+</div>"
+`;
+
+exports[`Page Header component PhotosWrapper renders correctly 3`] = `
+"<div>
+  <div>
+    <h3>
+      All Unorganized Photos
+    </h3>
+    <button onClick={[Function: onClick]}>
+      Create new album
+    </button>
+    <p>
+      New empty album
+       
+      <a href=\\"https://www.album68.com/album\\">
+        <b>
+          title
+        </b>
+      </a>
+       
+      was created.
+    </p>
+    <div />
+  </div>
+</div>"
+`;

@@ -1,41 +1,62 @@
 import axios from "axios";
 
+const BASE_URL = "https://photoslibrary.googleapis.com";
+
+export const Endpoints = {
+  ALBUMS: `${BASE_URL}/v1/albums`,
+  MEDIA_ITEMS: `${BASE_URL}/v1/mediaItems`,
+  MEDIA_ITEMS_SEARCH: `${BASE_URL}/v1/mediaItems:search`
+};
+
 const getAuthHeader = (token) => ({ Authorization: `Bearer ${token}` });
 
-export const getAllAlbums = async (token, limit = 5) => {
+const getAllPages = async (
+  token,
+  requestUrl,
+  limit,
+  pageSize,
+  responseItemKey
+) => {
   const authHeader = getAuthHeader(token);
-  let hasAllAlbums = false;
-  let collectedAlbums = [];
+  let hasAllItems = false;
+  let collectedItems = [];
   let nextPageToken = null;
-  while (!hasAllAlbums) {
+  while (!hasAllItems) {
     // construct request parameters
     let requestParams = {
-      pageSize: 5, // TODO - increase
+      pageSize: pageSize,
       pageToken: nextPageToken
     };
 
-    // call the albums api
-    const response = await axios.get(
-      "https://photoslibrary.googleapis.com/v1/albums",
-      {
-        params: requestParams,
-        headers: authHeader
-      }
-    );
+    // call the api endpoint
+    const response = await axios.get(requestUrl, {
+      params: requestParams,
+      headers: authHeader
+    });
 
-    // collected albums
-    collectedAlbums.push(...response.data.albums);
+    // collected items
+    collectedItems.push(...response.data[responseItemKey]);
 
     // are there more albums? (next page exists?)
-    if (response.data.nextPageToken && collectedAlbums.length <= limit) {
+    if (response.data.nextPageToken && collectedItems.length <= limit) {
       nextPageToken = response.data.nextPageToken;
     } else {
-      hasAllAlbums = true;
+      hasAllItems = true;
     }
   }
 
   // return all collected albums
-  return collectedAlbums;
+  return collectedItems;
+};
+
+export const getAllAlbums = async (token, limit = 5) => {
+  return await getAllPages(
+    token,
+    Endpoints.ALBUMS,
+    limit,
+    5,
+    "albums"
+  );
 };
 
 export const getPhotosInAlbum = async (token, albumId) => {
@@ -44,7 +65,7 @@ export const getPhotosInAlbum = async (token, albumId) => {
     albumId: albumId
   };
   const response = await axios.post(
-    "https://photoslibrary.googleapis.com/v1/mediaItems:search",
+    Endpoints.MEDIA_ITEMS_SEARCH,
     payload,
     { headers: getAuthHeader(token) }
   );
@@ -52,40 +73,13 @@ export const getPhotosInAlbum = async (token, albumId) => {
 };
 
 export const getAllPhotos = async (token, limit = 50) => {
-  const authHeader = getAuthHeader(token);
-  let hasAllPhotos = false;
-  let collectedPhotos = [];
-  let nextPageToken = null;
-
-  while (!hasAllPhotos) {
-    // construct request parameters
-    let requestParams = {
-      pageSize: 50, // TODO increase
-      pageToken: nextPageToken
-    };
-
-    // call the albums api
-    const response = await axios.get(
-      "https://photoslibrary.googleapis.com/v1/mediaItems",
-      {
-        params: requestParams,
-        headers: authHeader
-      }
-    );
-
-    // collected albums
-    collectedPhotos.push(...response.data.mediaItems);
-
-    // are there more albums? (next page exists?)
-    if (response.data.nextPageToken && collectedPhotos.length <= limit) {
-      nextPageToken = response.data.nextPageToken;
-    } else {
-      hasAllPhotos = true;
-    }
-  }
-
-  // return all collected albums
-  return collectedPhotos;
+  return await getAllPages(
+    token,
+    Endpoints.MEDIA_ITEMS,
+    limit,
+    50,
+    "mediaItems"
+  );
 };
 
 const createNewAlbum = async (token, albumTitle) => {
@@ -93,7 +87,7 @@ const createNewAlbum = async (token, albumTitle) => {
     album: { title: albumTitle }
   };
   const response = await axios.post(
-    "https://photoslibrary.googleapis.com/v1/albums",
+    Endpoints.ALBUMS,
     payload,
     { headers: getAuthHeader(token) }
   );

@@ -2,7 +2,7 @@
 
 exports[`Page Header component PageHeader renders correctly 1`] = `
 "<div>
-  <h4>
+  <h4 id=\\"app-title\\">
     Unalbumer
   </h4>
   <hr />

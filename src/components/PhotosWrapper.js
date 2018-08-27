@@ -28,7 +28,12 @@ export class PhotosWrapper extends Component {
   getUnorganizedPhotos() {
     const photos = this.props.unorganizedPhotos;
     return photos.map((photo) => (
-      <img className="photo-card" alt={photo.filename} key={photo.id} src={photo.baseUrl} />
+      <img
+        className="photo-card"
+        alt={photo.filename}
+        key={photo.id}
+        src={photo.baseUrl}
+      />
     ));
   }
 
@@ -52,11 +57,14 @@ export class PhotosWrapper extends Component {
         {this.props.loggedIn && !this.dataError ? (
           <div>
             <h3>All Unorganized Photos</h3>
-            <button onClick={() => this.addToNewAlbum("Unalbumer 1")}>
+            <button
+              id="new-album-button"
+              onClick={() => this.addToNewAlbum("Unalbumer 1")}
+            >
               Create new album
             </button>
             {this.props.newAlbum && (
-              <p>
+              <p id="new-album-link">
                 New empty album{" "}
                 <a href={this.props.newAlbum.productUrl}>
                   <b>{this.props.newAlbum.title}</b>

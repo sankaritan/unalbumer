@@ -7,7 +7,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("Page Header component", () => {
   const mockDispatch = () => {
-    return new Promise((resolve, reject) => {});
+    return new Promise(() => {});
   };
 
   const testOptions = [
@@ -18,8 +18,8 @@ describe("Page Header component", () => {
       photosInAlbums: [1, 2, 3],
       allPhotos: [1, 2, 3, 4, 5],
       unorganizedPhotos: [
-        { id: 4, baseUrl: "www.google.com" },
-        { id: 5, baseUrl: "www.google.com" }
+        { id: 4, filename: "image4.png", baseUrl: "www.google.com" },
+        { id: 5, filename: "image5.png", baseUrl: "www.google.com" }
       ],
       newAlbum: null
     },
@@ -30,8 +30,8 @@ describe("Page Header component", () => {
       photosInAlbums: [1, 2, 3],
       allPhotos: [1, 2, 3, 4, 5],
       unorganizedPhotos: [
-        { id: 4, baseUrl: "www.google.com" },
-        { id: 5, baseUrl: "www.google.com" }
+        { id: 4, filename: "image4.png", baseUrl: "www.google.com" },
+        { id: 5, filename: "image5.png", baseUrl: "www.google.com" }
       ],
       newAlbum: null
     },

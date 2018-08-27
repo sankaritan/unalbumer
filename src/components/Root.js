@@ -7,6 +7,29 @@ import PageHeader from "./PageHeader";
 import PropTypes from "prop-types";
 
 export class Root extends Component {
+  renderLogin() {
+    if (process.env.REACT_APP_MOCKS) {
+      // skip login if mocks are enabled
+      this.loginSuccess({
+        profileObj: { name: "Jaromir Jagr" },
+        accessToken: "dummyToken"
+      });
+    } else {
+      return (
+        <div>
+          <GoogleLogin
+            clientId="493662417086-dsm3ap89a5uvlv28sn9f7qu19fi7k26p.apps.googleusercontent.com"
+            scope="https://www.googleapis.com/auth/photoslibrary"
+            onSuccess={this.loginSuccess}
+            onFailure={this.loginFailure}
+            className={"button"}
+          />
+          <div id="google-login" />
+        </div>
+      );
+    }
+  }
+
   loginSuccess = (response) => {
     const username = response.profileObj.name;
     const token = response.accessToken;
@@ -27,16 +50,7 @@ export class Root extends Component {
             <PhotosWrapper />
           </div>
         ) : (
-          <div>
-            <GoogleLogin
-              clientId="493662417086-dsm3ap89a5uvlv28sn9f7qu19fi7k26p.apps.googleusercontent.com"
-              scope="https://www.googleapis.com/auth/photoslibrary"
-              onSuccess={this.loginSuccess}
-              onFailure={this.loginFailure}
-              className={"button"}
-            />
-            <div id="google-login" />
-          </div>
+          <div>{this.renderLogin()}</div>
         )}
       </div>
     );

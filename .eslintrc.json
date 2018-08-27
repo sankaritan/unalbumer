@@ -8,7 +8,8 @@
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "globals": {
     "window": true,
-    "document": true
+    "document": true,
+    "process": true
   },
   "settings": {
     "react": {

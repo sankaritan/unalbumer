@@ -28,7 +28,7 @@ export class PhotosWrapper extends Component {
   getUnorganizedPhotos() {
     const photos = this.props.unorganizedPhotos;
     return photos.map((photo) => (
-      <img className="photo-card" key={photo.id} src={photo.baseUrl} />
+      <img className="photo-card" alt={photo.filename} key={photo.id} src={photo.baseUrl} />
     ));
   }
 

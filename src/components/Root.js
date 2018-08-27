@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import { loginUserAction } from "../actions/userActions";
 import PhotosWrapper from "./PhotosWrapper";
-import PageHeader from './PageHeader';
+import PageHeader from "./PageHeader";
 import PropTypes from "prop-types";
 
-class Root extends Component {
+export class Root extends Component {
   loginSuccess = (response) => {
     const username = response.profileObj.name;
     const token = response.accessToken;
@@ -20,7 +20,7 @@ class Root extends Component {
   render() {
     return (
       <div>
-          <PageHeader/>
+        <PageHeader />
         {this.props.loggedIn ? (
           <div>
             <p>Logged in as {this.props.username}!</p>
@@ -33,7 +33,7 @@ class Root extends Component {
               scope="https://www.googleapis.com/auth/photoslibrary"
               onSuccess={this.loginSuccess}
               onFailure={this.loginFailure}
-              className={ 'button' }
+              className={"button"}
             />
             <div id="google-login" />
           </div>

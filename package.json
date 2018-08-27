@@ -2,6 +2,13 @@
   "name": "unalbumer",
   "version": "0.4.0",
   "private": true,
+  "jest": {
+    "collectCoverageFrom": [
+        "src/**/*.js",
+        "!src/registerServiceWorker.js",
+        "!src/index.js"
+      ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "axios-mock-adapter": "^1.15.0",

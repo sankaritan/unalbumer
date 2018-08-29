@@ -29,10 +29,13 @@ App
 * React (Create React App template)
 * Redux
 * Redux Thunk middleware
+* Redux Sagas
 * React router (unused but set up)
 * Eslint
 * Axios HTTP request library
 * Miligram css framework
+
++ Redux Ducks structure
 
 Tests
 

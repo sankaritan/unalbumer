@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Page Header component PhotosWrapper renders correctly 1`] = `
+exports[`Page Header component Photos renders correctly 1`] = `
 "<div>
   <div>
     <h3>
@@ -17,7 +17,7 @@ exports[`Page Header component PhotosWrapper renders correctly 1`] = `
 </div>"
 `;
 
-exports[`Page Header component PhotosWrapper renders correctly 2`] = `
+exports[`Page Header component Photos renders correctly 2`] = `
 "<div>
   <div>
     <p>
@@ -27,7 +27,7 @@ exports[`Page Header component PhotosWrapper renders correctly 2`] = `
 </div>"
 `;
 
-exports[`Page Header component PhotosWrapper renders correctly 3`] = `
+exports[`Page Header component Photos renders correctly 3`] = `
 "<div>
   <div>
     <h3>

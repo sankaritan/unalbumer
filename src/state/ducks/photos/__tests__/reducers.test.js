@@ -1,9 +1,9 @@
-import { photosReducer } from "../photosReducer";
-import { Actions } from "../../actions/photosActions";
-import albumsMock from "../../actions/mocks/albums.json";
-import allPhotosMock from "../../actions/mocks/allPhotos.json";
-import photosInAlbumsMock from "../../actions/mocks/photosInAlbums.json";
-import createNewAlbumMock from "../../actions/mocks/createNewAlbum.json";
+import photosReducer from "../reducers";
+import { Actions } from "../actions";
+import albumsMock from "../api/mocks/albums.json";
+import allPhotosMock from "../api/mocks/allPhotos.json";
+import photosInAlbumsMock from "../api/mocks/photosInAlbums.json";
+import createNewAlbumMock from "../api/mocks/createNewAlbum.json";
 
 describe("Photos Reducer", () => {
   it("should return the initial state", () => {

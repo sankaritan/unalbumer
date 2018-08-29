@@ -7,17 +7,17 @@ import {
   getAllPhotosInAlbumsAction,
   flattenPhotos,
   createNewAlbumAction
-} from "../photosActions";
+} from "../actions";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 
 // MOCKS
-import albumsMock from "../mocks/albums.json";
-import allPhotosMock from "../mocks/allPhotos.json";
-import photosInAlbumsMock from "../mocks/photosInAlbums.json";
-import createNewAlbumMock from "../mocks/createNewAlbum.json";
+import albumsMock from "../api/mocks/albums.json";
+import allPhotosMock from "../api/mocks/allPhotos.json";
+import photosInAlbumsMock from "../api/mocks/photosInAlbums.json";
+import createNewAlbumMock from "../api/mocks/createNewAlbum.json";
 
-import { Endpoints } from "../../api/photosClient";
+import { Endpoints } from "../api/photosClient";
 
 // MOCK SETUP
 const mockStore = configureMockStore([thunk]);
@@ -75,27 +75,33 @@ describe("Photos Actions", () => {
     });
   });
 
-  // no longer valid due to saga migration
-  it.skip("should create a new album", () => {
-    const expectedActions = [
-      {
-        type: Actions.CREATE_NEW_ALBUM,
-        payload: createNewAlbumMock
-      }
-    ];
-    const store = mockStore({ newAlbum: [] });
+  //   describe("User Actions", () => {
+  //     it("should create an action to log in user", () => {
+  //       const username = "jaromirjagr";
+  //       const token = "welcomeback";
+  //       const expectedAction = {
+  //         type: Actions.LOGIN_USER,
+  //         payload: { token, username }
+  //       };
+  //       expect(loginUserAction(username, token)).toEqual(expectedAction);
+  //     });
+  //   });
 
-    return store
-      .dispatch(
-        createNewAlbumAction(
-          "oauthToken",
-          ["photo1", "photo2", "photo3"],
-          "New Album"
-        )
-      )
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+  // no longer valid due to saga migration
+  it("should create a new album", () => {
+    const testData = {
+      token: "oauthToken",
+      photos: ["photo1", "photo2", "photo3"],
+      title: "New Album"
+    };
+    const expectedAction = {
+      type: Actions.CREATE_NEW_ALBUM.START,
+      payload: { ...testData }
+    };
+
+    expect(
+      createNewAlbumAction(testData.token, testData.photos, testData.title)
+    ).toEqual(expectedAction);
   });
 
   it("should flatten photos in array", () => {

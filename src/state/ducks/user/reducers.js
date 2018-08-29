@@ -1,6 +1,6 @@
-import { Actions } from "../actions/userActions";
+import { Actions } from "./actions";
 
-export const oauthReducer = (state = null, action) => {
+const userReducer = (state = null, action) => {
   switch (action.type) {
     case Actions.LOGIN_USER: {
       const { username, token } = action.payload;
@@ -17,3 +17,5 @@ export const oauthReducer = (state = null, action) => {
       return state;
   }
 };
+
+export default userReducer;

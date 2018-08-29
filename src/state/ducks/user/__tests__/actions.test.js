@@ -1,4 +1,4 @@
-import { Actions, loginUserAction } from "../userActions";
+import { Actions, loginUserAction } from "../actions";
 
 describe("User Actions", () => {
   it("should create an action to log in user", () => {

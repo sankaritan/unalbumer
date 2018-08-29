@@ -1,6 +1,6 @@
-import { filterUnorganizedPhotos } from "../photosSelector";
-import allPhotosMock from "../../actions/mocks/allPhotos.json";
-import photosInAlbumsSelectorMock from "../../actions/mocks/photosInAlbumsSelector.json";
+import { filterUnorganizedPhotos } from "../selectors";
+import allPhotosMock from "../api/mocks/allPhotos.json";
+import photosInAlbumsSelectorMock from "../api/mocks/photosInAlbumsSelector.json";
 
 describe("Photos Selector", () => {
   it("should return array of unorganized photos", () => {

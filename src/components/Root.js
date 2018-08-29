@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { GoogleLogin } from "react-google-login";
-import { loginUserAction } from "../actions/userActions";
-import PhotosWrapper from "./PhotosWrapper";
-import PageHeader from "./PageHeader";
+import { loginUserAction } from "../state/ducks/user/actions";
+import Photos from "./Photos";
+import Header from "./Header";
 import PropTypes from "prop-types";
 
 export class Root extends Component {
@@ -43,11 +43,11 @@ export class Root extends Component {
   render() {
     return (
       <div>
-        <PageHeader />
+        <Header />
         {this.props.loggedIn ? (
           <div>
             <p>Logged in as {this.props.username}!</p>
-            <PhotosWrapper />
+            <Photos />
           </div>
         ) : (
           <div>{this.renderLogin()}</div>

@@ -50,13 +50,7 @@ const getAllPages = async (
 };
 
 export const getAllAlbums = async (token, limit = 5) => {
-  return await getAllPages(
-    token,
-    Endpoints.ALBUMS,
-    limit,
-    5,
-    "albums"
-  );
+  return await getAllPages(token, Endpoints.ALBUMS, limit, 5, "albums");
 };
 
 export const getPhotosInAlbum = async (token, albumId) => {
@@ -64,11 +58,9 @@ export const getPhotosInAlbum = async (token, albumId) => {
     pageSize: 500,
     albumId: albumId
   };
-  const response = await axios.post(
-    Endpoints.MEDIA_ITEMS_SEARCH,
-    payload,
-    { headers: getAuthHeader(token) }
-  );
+  const response = await axios.post(Endpoints.MEDIA_ITEMS_SEARCH, payload, {
+    headers: getAuthHeader(token)
+  });
   return response;
 };
 
@@ -86,11 +78,9 @@ const createNewAlbum = async (token, albumTitle) => {
   let payload = {
     album: { title: albumTitle }
   };
-  const response = await axios.post(
-    Endpoints.ALBUMS,
-    payload,
-    { headers: getAuthHeader(token) }
-  );
+  const response = await axios.post(Endpoints.ALBUMS, payload, {
+    headers: getAuthHeader(token)
+  });
   return response;
 };
 

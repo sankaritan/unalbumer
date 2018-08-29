@@ -75,7 +75,8 @@ describe("Photos Actions", () => {
     });
   });
 
-  it("should create a new album", () => {
+  // no longer valid due to saga migration
+  it.skip("should create a new album", () => {
     const expectedActions = [
       {
         type: Actions.CREATE_NEW_ALBUM,

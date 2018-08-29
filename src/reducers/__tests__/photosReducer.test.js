@@ -46,7 +46,7 @@ describe("Photos Reducer", () => {
   it("should handle CREATE_NEW_ALBUM action type", () => {
     expect(
       photosReducer([], {
-        type: Actions.CREATE_NEW_ALBUM,
+        type: Actions.CREATE_NEW_ALBUM.SUCCESS,
         payload: createNewAlbumMock
       })
     ).toEqual({

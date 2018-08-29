@@ -1,8 +1,7 @@
 import {
   getAllAlbums,
   getPhotosInAlbum,
-  getAllPhotos,
-  organizePhotos
+  getAllPhotos
 } from "../api/photosClient";
 
 import MockAdapter from "axios-mock-adapter";
@@ -26,7 +25,10 @@ export const Actions = {
   GET_ALBUMS: "GET_ALBUMS",
   GET_ALL_PHOTOS: "GET_ALL_PHOTOS",
   GET_ALL_PHOTOS_IN_ALBUMS: "GET_ALL_PHOTOS_IN_ALBUMS",
-  CREATE_NEW_ALBUM: "CREATE_NEW_ALBUM"
+  CREATE_NEW_ALBUM: {
+    START: "START",
+    SUCCESS: "SUCCESS"
+  }
 };
 
 export const getAlbumsAction = (token) => {
@@ -68,12 +70,10 @@ export const getAllPhotosInAlbumsAction = (token) => {
   };
 };
 
+// doing it the Saga way
 export const createNewAlbumAction = (token, photos, title) => {
-  return async (dispatch) => {
-    const newAlbum = await organizePhotos(token, photos, title);
-    dispatch({
-      type: Actions.CREATE_NEW_ALBUM,
-      payload: newAlbum.data
-    });
+  return {
+    type: Actions.CREATE_NEW_ALBUM.START,
+    payload: { token, photos, title }
   };
 };

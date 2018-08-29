@@ -1,8 +1,10 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import { routerReducer, routerMiddleware } from "react-router-redux";
+import createSagaMiddleware from "redux-saga";
 import createHistory from "history/createBrowserHistory";
 import thunk from "redux-thunk";
 import { rootReducer } from "../reducers/rootReducer";
+import rootSaga from "../sagas/photosSaga";
 
 export const history = createHistory();
 history.push("/");
@@ -12,16 +14,17 @@ export const initialState = {
   user: {
     username: null,
     loggedIn: false,
-    oauthToken: null,
+    oauthToken: null
   },
   photos: {
     albums: [],
     photosInAlbums: [],
     allPhotos: [],
-    newAlbum: null,
+    newAlbum: null
   }
 };
 
+const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
@@ -30,7 +33,11 @@ const store = createStore(
     router: routerReducer
   }),
   initialState,
-  composeEnhancers(applyMiddleware(thunk, routerMiddleware(history)))
+  composeEnhancers(
+    applyMiddleware(thunk, routerMiddleware(history), sagaMiddleware)
+  )
 );
+
+sagaMiddleware.run(rootSaga);
 
 export default store;

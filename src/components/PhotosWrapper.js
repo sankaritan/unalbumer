@@ -38,17 +38,13 @@ export class PhotosWrapper extends Component {
   }
 
   addToNewAlbum(title) {
-    this.props
-      .dispatch(
-        createNewAlbumAction(
-          this.props.oauthToken,
-          this.props.unorganizedPhotos,
-          title
-        )
+    this.props.dispatch(
+      createNewAlbumAction(
+        this.props.oauthToken,
+        this.props.unorganizedPhotos,
+        title
       )
-      .catch((error) => {
-        this.dataError = error.message;
-      });
+    );
   }
 
   render() {

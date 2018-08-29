@@ -8,7 +8,7 @@ export const photosReducer = (state = null, action) => {
       return { ...state, allPhotos: action.payload };
     case Actions.GET_ALL_PHOTOS_IN_ALBUMS:
       return { ...state, photosInAlbums: action.payload };
-    case Actions.CREATE_NEW_ALBUM:
+    case Actions.CREATE_NEW_ALBUM.SUCCESS:
       return { ...state, newAlbum: action.payload };
     default:
       return state;

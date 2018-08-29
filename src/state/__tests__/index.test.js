@@ -1,7 +1,7 @@
-import store from "..";
+import store from "../store";
 
 describe("Store", () => {
-  it("PageHeader renders correctly", () => {
+  it("component renders correctly", () => {
     expect(store).toMatchSnapshot();
   });
 });

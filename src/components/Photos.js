@@ -4,11 +4,12 @@ import {
   getAllPhotosInAlbumsAction,
   getAllPhotosAction,
   createNewAlbumAction
-} from "../actions/photosActions";
-import { filterUnorganizedPhotos } from "../selectors/photosSelector";
+} from "../state/ducks/photos/actions";
+import { filterUnorganizedPhotos } from "../state/ducks/photos/selectors";
+
 import PropTypes from "prop-types";
 
-export class PhotosWrapper extends Component {
+export class Photos extends Component {
   dataError = null;
 
   componentDidMount() {
@@ -82,7 +83,7 @@ export class PhotosWrapper extends Component {
   }
 }
 
-PhotosWrapper.propTypes = {
+Photos.propTypes = {
   dispatch: PropTypes.func,
   oauthToken: PropTypes.string,
   loggedIn: PropTypes.bool,
@@ -104,4 +105,4 @@ const mapStateToProps = (state) => ({
   newAlbum: state.photos.newAlbum
 });
 
-export default connect(mapStateToProps)(PhotosWrapper);
+export default connect(mapStateToProps)(Photos);

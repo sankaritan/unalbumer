@@ -1,5 +1,5 @@
 import React from "react";
-import { PhotosWrapper } from "../PhotosWrapper";
+import { Photos } from "../Photos";
 import Adapter from "enzyme-adapter-react-16";
 import Enzyme, { shallow } from "enzyme";
 
@@ -47,8 +47,8 @@ describe("Page Header component", () => {
   ];
 
   testOptions.forEach((props) => {
-    it("PhotosWrapper renders correctly", () => {
-      const component = shallow(<PhotosWrapper {...props} />).debug();
+    it("Photos renders correctly", () => {
+      const component = shallow(<Photos {...props} />).debug();
       expect(component).toMatchSnapshot();
     });
   });

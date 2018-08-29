@@ -3,8 +3,7 @@ import { routerReducer, routerMiddleware } from "react-router-redux";
 import createSagaMiddleware from "redux-saga";
 import createHistory from "history/createBrowserHistory";
 import thunk from "redux-thunk";
-import { rootReducer } from "../reducers/rootReducer";
-import rootSaga from "../sagas/photosSaga";
+import { rootReducer, rootSaga } from "./ducks";
 
 export const history = createHistory();
 history.push("/");

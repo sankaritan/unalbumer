@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Page Header component PageHeader renders correctly 1`] = `
+exports[`Header component component renders correctly 1`] = `
 "<div>
   <h4 id=\\"app-title\\">
     Unalbumer

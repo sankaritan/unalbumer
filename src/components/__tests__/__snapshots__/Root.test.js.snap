@@ -2,21 +2,21 @@
 
 exports[`Root component Root renders correctly 1`] = `
 "<div>
-  <PageHeader />
+  <Header />
   <div>
     <p>
       Logged in as 
       jardajagr
       !
     </p>
-    <Connect(PhotosWrapper) />
+    <Connect(Photos) />
   </div>
 </div>"
 `;
 
 exports[`Root component Root renders correctly 2`] = `
 "<div>
-  <PageHeader />
+  <Header />
   <div>
     <div>
       <t clientId=\\"493662417086-dsm3ap89a5uvlv28sn9f7qu19fi7k26p.apps.googleusercontent.com\\" scope=\\"https://www.googleapis.com/auth/photoslibrary\\" onSuccess={[Function]} onFailure={[Function]} className=\\"button\\" type=\\"button\\" tag=\\"button\\" buttonText=\\"Login with Google\\" accessType=\\"online\\" prompt=\\"\\" cookiePolicy=\\"single_host_origin\\" fetchBasicProfile={true} isSignedIn={false} uxMode=\\"popup\\" disabledStyle={{...}} onRequest={[Function: onRequest]} jsSrc=\\"https://apis.google.com/js/client:platform.js\\" />
